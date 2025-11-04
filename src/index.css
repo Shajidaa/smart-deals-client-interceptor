@@ -1,0 +1,19 @@
+@import "tailwindcss";
+
+@plugin "daisyui" {
+    themes: light --default;
+}
+
+
+
+.gradient {
+    @apply bg-linear-to-r from-[#632EE3] to-[#9F62F2] text-white
+}
+
+.gradient:hover {
+    @apply hover:opacity-90
+}
+
+.active {
+    @apply border-b-2 text-violet-500 border-b-violet-500
+}
