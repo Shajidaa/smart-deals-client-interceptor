@@ -21,7 +21,7 @@ const CreateProject = () => {
       price_max,
       email: user.email,
     };
-    // axios.post(`http://localhost:3000/products`, newProduct).then((data) => {
+    // axios.post(`https://smart-deals-server-nine.vercel.app/products`, newProduct).then((data) => {
     //   console.log(data);
     //   if (data.data.insertedId) {
     //     alert`The product has been create successfully`;

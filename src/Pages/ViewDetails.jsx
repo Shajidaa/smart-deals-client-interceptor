@@ -22,14 +22,16 @@ const ViewDetails = () => {
   } = product;
   useEffect(() => {
     axios
-      .get(`http://localhost:3000/products/bids/${productId}`)
+      .get(
+        `https://smart-deals-server-nine.vercel.app/products/bids/${productId}`
+      )
       .then((data) => {
         setBidsProduct(data.data);
         // console.log(data);
       });
   }, [productId]);
   // useEffect(() => {
-  //   fetch(`http://localhost:3000/products/bids/${productId}`)
+  //   fetch(`https://smart-deals-server-nine.vercel.app/products/bids/${productId}`)
   //     .then((res) => res.json())
   //     .then((data) => {
   //       setBidsProduct(data);
@@ -49,7 +51,7 @@ const ViewDetails = () => {
       status: "pending",
     };
 
-    fetch("http://localhost:3000/bids", {
+    fetch("https://smart-deals-server-nine.vercel.app/bids", {
       method: "POST",
       headers: {
         "Content-type": "application/json",
@@ -72,9 +74,12 @@ const ViewDetails = () => {
 
   const handleDelete = async (_id) => {
     try {
-      const res = await fetch(`http://localhost:3000/bids/${_id}`, {
-        method: "Delete",
-      });
+      const res = await fetch(
+        `https://smart-deals-server-nine.vercel.app/bids/${_id}`,
+        {
+          method: "Delete",
+        }
+      );
       const data = await res.json();
       if (data) {
         const remainingBids = bidsProduct.filter((bid) => bid._id !== _id);

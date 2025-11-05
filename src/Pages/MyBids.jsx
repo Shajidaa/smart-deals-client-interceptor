@@ -17,7 +17,7 @@ const MyBids = () => {
 
   // useEffect(() => {
   //   if (user) {
-  //     fetch(`http://localhost:3000/bids?email=${user?.email}`, {
+  //     fetch(`https://smart-deals-server-nine.vercel.app/bids?email=${user?.email}`, {
   //       headers: {
   //         authorization: `Bearer ${user.accessToken}`,
   //       },
@@ -31,9 +31,12 @@ const MyBids = () => {
 
   const handleDelete = async (_id) => {
     try {
-      const res = await fetch(`http://localhost:3000/bids/${_id}`, {
-        method: "Delete",
-      });
+      const res = await fetch(
+        `https://smart-deals-server-nine.vercel.app/bids/${_id}`,
+        {
+          method: "Delete",
+        }
+      );
       const data = await res.json();
       if (data) {
         const remainingBids = bidsProduct.filter((bid) => bid._id !== _id);
