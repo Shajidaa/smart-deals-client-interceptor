@@ -13,7 +13,7 @@ const CreateProject = () => {
     const photo = e.target.photo_url.value;
     const price_min = e.target.price_min.value;
     const price_max = e.target.price_max.value;
-    console.log(title, photo, price_max, price_min);
+    // console.log(title, photo, price_max, price_min);
     const newProduct = {
       title,
       photo,
@@ -28,7 +28,7 @@ const CreateProject = () => {
     //   }
     // });
     axiosSecure.post("/products", newProduct).then((data) => {
-      console.log(data.data);
+      // console.log(data.data);
       if (data.data.insertedId) {
         alert`The product has been create successfully`;
       }

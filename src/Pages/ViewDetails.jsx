@@ -25,7 +25,7 @@ const ViewDetails = () => {
       .get(`http://localhost:3000/products/bids/${productId}`)
       .then((data) => {
         setBidsProduct(data.data);
-        console.log(data);
+        // console.log(data);
       });
   }, [productId]);
   // useEffect(() => {

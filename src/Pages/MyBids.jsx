@@ -1,23 +1,33 @@
-import { use, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
+import useAuth from "../hooks/AuthHook/Auth";
+import useAxiosSecure from "../hooks/AuthHook/useAxiosSecure";
 
 const MyBids = () => {
-  const { user } = use(AuthContext);
-
+  // const { user } = use(AuthContext);
+  const { user } = useAuth();
+  const axiosInstance = useAxiosSecure();
   const [bidsProduct, setBidsProduct] = useState([]);
+
   useEffect(() => {
-    if (user) {
-      fetch(`http://localhost:3000/bids?email=${user?.email}`, {
-        headers: {
-          authorization: `Bearer ${user.accessToken}`,
-        },
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          setBidsProduct(data);
-        });
-    }
-  }, [user]);
+    axiosInstance
+      .get(`/bids?email=${user?.email}`)
+      .then((data) => setBidsProduct(data.data));
+  }, [user, axiosInstance]);
+
+  // useEffect(() => {
+  //   if (user) {
+  //     fetch(`http://localhost:3000/bids?email=${user?.email}`, {
+  //       headers: {
+  //         authorization: `Bearer ${user.accessToken}`,
+  //       },
+  //     })
+  //       .then((res) => res.json())
+  //       .then((data) => {
+  //         setBidsProduct(data);
+  //       });
+  //   }
+  // }, [user]);
 
   const handleDelete = async (_id) => {
     try {
@@ -31,7 +41,7 @@ const MyBids = () => {
       }
       // console.log(data);
     } catch (error) {
-      console.log(error.message);
+      e.log(error.message);
     }
   };
   return (
