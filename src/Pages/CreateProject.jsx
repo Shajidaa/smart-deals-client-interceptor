@@ -1,6 +1,8 @@
 import axios from "axios";
+import useAuth from "../hooks/AuthHook/Auth";
 
 const CreateProject = () => {
+  const { user } = useAuth();
   const handleCreateProduct = (e) => {
     e.preventDefault();
     const title = e.target.title.value;
@@ -13,6 +15,7 @@ const CreateProject = () => {
       photo,
       price_min,
       price_max,
+      email: user.email,
     };
     axios.post(`http://localhost:3000/products`, newProduct).then((data) => {
       console.log(data);
