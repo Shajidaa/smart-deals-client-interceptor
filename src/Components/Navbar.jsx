@@ -29,30 +29,34 @@ const Navbar = () => {
         >
           All Products
         </NavLink>
-        <NavLink
-          className={
-            "ml-3 border-b-2 border-transparent text-base font-medium text-black"
-          }
-          to={"/myProducts"}
-        >
-          My Products
-        </NavLink>
-        <NavLink
-          className={
-            "ml-3 border-b-2 border-transparent text-base font-medium text-black"
-          }
-          to={"/myBids"}
-        >
-          My Bids
-        </NavLink>
-        <NavLink
-          className={
-            "ml-3 border-b-2 border-transparent text-base font-medium text-black"
-          }
-          to={"/createProduct"}
-        >
-          Create Product
-        </NavLink>
+        {user && (
+          <>
+            <NavLink
+              className={
+                "ml-3 border-b-2 border-transparent text-base font-medium text-black"
+              }
+              to={"/myProducts"}
+            >
+              My Products
+            </NavLink>
+            <NavLink
+              className={
+                "ml-3 border-b-2 border-transparent text-base font-medium text-black"
+              }
+              to={"/myBids"}
+            >
+              My Bids
+            </NavLink>
+            <NavLink
+              className={
+                "ml-3 border-b-2 border-transparent text-base font-medium text-black"
+              }
+              to={"/createProduct"}
+            >
+              Create Product
+            </NavLink>
+          </>
+        )}
       </li>
     </>
   );

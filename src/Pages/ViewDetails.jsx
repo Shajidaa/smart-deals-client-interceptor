@@ -1,6 +1,7 @@
 import React, { use, useEffect, useRef, useState } from "react";
 import { Link, useLoaderData } from "react-router";
 import { AuthContext } from "../context/AuthContext";
+import axios from "axios";
 
 const ViewDetails = () => {
   const product = useLoaderData();
@@ -20,17 +21,20 @@ const ViewDetails = () => {
     image,
   } = product;
   useEffect(() => {
-    fetch(`http://localhost:3000/products/bids/${productId}`)
-      .then((res) => res.json())
+    axios
+      .get(`http://localhost:3000/products/bids/${productId}`)
       .then((data) => {
-        setBidsProduct(data);
+        setBidsProduct(data.data);
+        console.log(data);
       });
-  }, [productId, isAdd]);
-  // console.log(bidsProduct);
-
-  // const handleBidModalClose = () => {
-  //   bidRef.current.close();
-  // };
+  }, [productId]);
+  // useEffect(() => {
+  //   fetch(`http://localhost:3000/products/bids/${productId}`)
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       setBidsProduct(data);
+  //     });
+  // }, [productId, isAdd]);
 
   const handleBidSubmit = (e) => {
     e.preventDefault();
@@ -176,7 +180,7 @@ const ViewDetails = () => {
             </thead>
 
             {bidsProduct?.map((pro, index) => (
-              <tbody>
+              <tbody key={pro._id}>
                 {/* row 4 */}
                 <tr>
                   <td className="font-semibold">{index + 1}</td>
