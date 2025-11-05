@@ -6,13 +6,19 @@ const MyBids = () => {
 
   const [bidsProduct, setBidsProduct] = useState([]);
   useEffect(() => {
-    fetch(`http://localhost:3000/bids?email=${user?.email}`)
-      .then((res) => res.json())
-      .then((data) => {
-        setBidsProduct(data);
-      });
-  }, [user?.email]);
-  console.log(bidsProduct);
+    if (user) {
+      fetch(`http://localhost:3000/bids?email=${user?.email}`, {
+        headers: {
+          authorization: `Bearer ${user.accessToken}`,
+        },
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          setBidsProduct(data);
+        });
+    }
+  }, [user]);
+
   const handleDelete = async (_id) => {
     try {
       const res = await fetch(`http://localhost:3000/bids/${_id}`, {
@@ -23,7 +29,7 @@ const MyBids = () => {
         const remainingBids = bidsProduct.filter((bid) => bid._id !== _id);
         setBidsProduct(remainingBids);
       }
-      console.log(data);
+      // console.log(data);
     } catch (error) {
       console.log(error.message);
     }

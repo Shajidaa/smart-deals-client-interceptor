@@ -13,7 +13,6 @@ const Navbar = () => {
   const links = (
     <>
       <li>
-        <h1>{user?.displayName}</h1>
         <NavLink
           className={
             "ml-3 border-b-2 border-transparent text-base font-medium text-black"

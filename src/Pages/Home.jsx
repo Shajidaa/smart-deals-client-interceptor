@@ -1,4 +1,4 @@
-import LatestProducts from "../Components/latestProducts";
+import LatestProducts from "../Components/LatestProducts";
 
 const Home = () => {
   // const latestProductsPromise = async () => {
@@ -17,7 +17,9 @@ const Home = () => {
 
   return (
     <div>
-      <h1 className="text-center text-4xl">Recent Products</h1>
+      <h1 className="text-center text-4xl my-5 font-semibold">
+        Recent <span className="text-violet-500">Products </span>
+      </h1>
       <LatestProducts
         latestProductsPromise={latestProductsPromise}
       ></LatestProducts>

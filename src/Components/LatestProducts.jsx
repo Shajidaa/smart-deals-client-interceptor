@@ -10,7 +10,7 @@ const LatestProducts = ({ latestProductsPromise }) => {
     };
     fetchProducts();
   }, [latestProductsPromise]);
-  console.log(products);
+  // console.log(products);
   // const products = use(latestProductsPromise);
   // console.log(products);
 
