@@ -1,10 +1,12 @@
 // import axios from "axios";
 import useAuth from "../hooks/AuthHook/Auth";
-import useAxios from "../hooks/AuthHook/useAxios";
+// import useAxios from "../hooks/AuthHook/useAxios";
+import useAxiosSecure from "../hooks/AuthHook/useAxiosSecure";
 
 const CreateProject = () => {
   const { user } = useAuth();
-  const instance = useAxios();
+  // const instance = useAxios();
+  const axiosSecure = useAxiosSecure();
   const handleCreateProduct = (e) => {
     e.preventDefault();
     const title = e.target.title.value;
@@ -25,12 +27,18 @@ const CreateProject = () => {
     //     alert`The product has been create successfully`;
     //   }
     // });
-    instance.post("/products", newProduct).then((data) => {
+    axiosSecure.post("/products", newProduct).then((data) => {
       console.log(data.data);
       if (data.data.insertedId) {
         alert`The product has been create successfully`;
       }
     });
+    // instance.post("/products", newProduct).then((data) => {
+    //   console.log(data.data);
+    //   if (data.data.insertedId) {
+    //     alert`The product has been create successfully`;
+    //   }
+    // });
   };
   return (
     <div className="max-w-3xl mx-auto">
