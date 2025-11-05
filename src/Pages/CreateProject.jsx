@@ -1,8 +1,10 @@
-import axios from "axios";
+// import axios from "axios";
 import useAuth from "../hooks/AuthHook/Auth";
+import useAxios from "../hooks/AuthHook/useAxios";
 
 const CreateProject = () => {
   const { user } = useAuth();
+  const instance = useAxios();
   const handleCreateProduct = (e) => {
     e.preventDefault();
     const title = e.target.title.value;
@@ -17,8 +19,14 @@ const CreateProject = () => {
       price_max,
       email: user.email,
     };
-    axios.post(`http://localhost:3000/products`, newProduct).then((data) => {
-      console.log(data);
+    // axios.post(`http://localhost:3000/products`, newProduct).then((data) => {
+    //   console.log(data);
+    //   if (data.data.insertedId) {
+    //     alert`The product has been create successfully`;
+    //   }
+    // });
+    instance.post("/products", newProduct).then((data) => {
+      console.log(data.data);
       if (data.data.insertedId) {
         alert`The product has been create successfully`;
       }
