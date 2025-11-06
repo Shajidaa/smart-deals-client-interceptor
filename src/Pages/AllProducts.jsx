@@ -3,6 +3,7 @@ import Product from "../Components/Product/Product";
 
 const AllProducts = () => {
   const [products, setProducts] = useState([]);
+
   // const allProductsData = fetch(`http://localhost:3000/allProducts`).then(
   //   (res) => res.json()
   // );
@@ -16,10 +17,11 @@ const AllProducts = () => {
   // }, []);
 
   useEffect(() => {
-    fetch(`http://localhost:3000/allProducts`).then((res) =>
-      res.json().then((data) => {
-        setProducts(data);
-      })
+    fetch(`https://smart-deals-server-nine.vercel.app/allProducts`).then(
+      (res) =>
+        res.json().then((data) => {
+          setProducts(data);
+        })
     );
   }, []);
 

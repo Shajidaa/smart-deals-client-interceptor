@@ -1,6 +1,7 @@
 import React, { use } from "react";
 import { Link } from "react-router";
 import { AuthContext } from "../context/AuthContext";
+import Swal from "sweetalert2";
 
 const Login = () => {
   const { signInGoogleFunc, setUser, logInFunc } = use(AuthContext);
@@ -12,17 +13,26 @@ const Login = () => {
     try {
       logInFunc(email, password).then((res) => {
         setUser(res.user);
-        alert`Login successfully`;
+        Swal.fire({
+          title: "Login successfully",
+          icon: "success",
+          draggable: true,
+        });
         e.target.reset();
       });
     } catch (error) {
       console.log(error.message);
     }
   };
+
   const handleGoogleLogin = () => {
     signInGoogleFunc().then((res) => {
       setUser(res.user);
-      alert`Google Login successfully`;
+      Swal.fire({
+        title: "Login successfully",
+        icon: "success",
+        draggable: true,
+      });
     });
   };
   return (

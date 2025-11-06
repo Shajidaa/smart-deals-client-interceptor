@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { AuthContext } from "../context/AuthContext";
+// import { AuthContext } from "../context/AuthContext";
 import useAuth from "../hooks/AuthHook/Auth";
 import useAxiosSecure from "../hooks/AuthHook/useAxiosSecure";
 
@@ -44,7 +44,7 @@ const MyBids = () => {
       }
       // console.log(data);
     } catch (error) {
-      e.log(error.message);
+      console.log(error.message);
     }
   };
   return (

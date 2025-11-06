@@ -15,11 +15,13 @@ import MyBids from "./Pages/MyBids.jsx";
 import CreateProject from "./Pages/CreateProject.jsx";
 import ViewDetails from "./Pages/ViewDetails.jsx";
 import PrivateRouter from "./Provider/PrivateRouter.jsx";
+import Spinner from "./Components/Spinner/Spinner.jsx";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <RootLayout></RootLayout>,
+    HydrateFallback: <Spinner></Spinner>,
     children: [
       {
         index: true,
