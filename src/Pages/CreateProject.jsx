@@ -1,191 +1,230 @@
-// import axios from "axios";
 import Swal from "sweetalert2";
 import useAuth from "../hooks/AuthHook/Auth";
-// import useAxios from "../hooks/AuthHook/useAxios";
 import useAxiosSecure from "../hooks/AuthHook/useAxiosSecure";
 import { useState } from "react";
+import { Link } from "react-router";
 
 const CreateProject = () => {
   const { user } = useAuth();
-  // const instance = useAxios();
   const axiosSecure = useAxiosSecure();
   const [loading, setLoading] = useState(false);
-  const handleCreateProduct = (e) => {
+
+  const handleCreateProduct = async (e) => {
     e.preventDefault();
     setLoading(true);
-
     const form = new FormData(e.target);
-    const newProduct = Object.fromEntries(form.entries());
-    console.log(newProduct);
+    const product = Object.fromEntries(form.entries());
+    const newProduct = {
+      ...product,
+      created_at: new Date(),
+      email: user?.email,
+    };
 
-    newProduct.email = user?.email;
-    // const newProduct = {
-    //   title,
-    //   photo,
-    //   price_min,
-    //   price_max,
-    //   email: user.email,
-
-    //   select,
-    //   condition,
-    // };
-    // axios.post(`https://smart-deals-server-nine.vercel.app/products`, newProduct).then((data) => {
-    //   console.log(data);
-    //   if (data.data.insertedId) {
-    //     alert`The product has been create successfully`;
-    //   }
-    // });
     try {
-      axiosSecure.post("/products", newProduct).then((data) => {
-        if (data.data.insertedId) {
-          Swal.fire("The product has been create successfully!");
-          e.target.reset();
-        }
-      });
+      const { data } = await axiosSecure.post("/products", newProduct);
+      if (data.insertedId) {
+        Swal.fire(
+          "Success!",
+          "The product has been created successfully!",
+          "success"
+        );
+        e.target.reset();
+      }
     } catch (error) {
       console.error(error);
-      Swal.fire("Something went wrong");
+      Swal.fire(
+        "Oops!",
+        "Something went wrong while creating the product.",
+        "error"
+      );
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
-    // instance.post("/products", newProduct).then((data) => {
-    //   console.log(data.data);
-    //   if (data.data.insertedId) {
-    //     alert`The product has been create successfully`;
-    //   }
-    // });
   };
-  console.log(loading);
 
   return (
-    <div className="max-w-3xl mx-auto">
-      <form onSubmit={handleCreateProduct}>
-        <fieldset className="fieldset">
-          {/* name  */}
-          <label className="label">Title</label>
-          <input
-            type="text"
-            required
-            placeholder="tittle"
-            name="title"
-            className="input"
-          />
-          {/* category  */}
-          <label className="label">Category</label>
-          <select
-            defaultValue="Select a Category"
-            name="select"
-            className="select"
-            required
-          >
-            <option disabled={true}>Select a Category</option>
-            <option>Furniture</option>
-            <option>Vehicles</option>
-            <option>Home Appliances</option>
-            <option>Electronics</option>
-            <option>Baby Products</option>
-          </select>
-          {/* email  */}
-          <label className="label">Photo Url</label>
-          <input
-            type="text"
-            placeholder="photo url"
-            required
-            name="photo_url"
-            className="input"
-          />
-          {/*price_min*/}
-          <label className="label">price_min</label>
-          <input
-            type="text"
-            name="price_min"
-            className="input"
-            placeholder="type your price_min"
-            required
-          />
-          {/*price_max*/}
-          <label className="label">price_max</label>
-          <input
-            type="text"
-            name="price_max"
-            className="input"
-            placeholder="type your price_max"
-            required
-          />
-          <label>Product Condition</label>
-          <div className="flex gap-2">
-            <div className="flex justify-center gap-1 items-center">
+    <div className="max-w-3xl mx-auto py-10 px-4">
+      <Link to={"/allProducts"}>← Back To Products</Link>
+
+      <h2 className="text-center text-4xl font-bold mt-4">
+        Create <span className="text-indigo-500">A Product</span>
+      </h2>
+
+      <form
+        onSubmit={handleCreateProduct}
+        className="bg-white border border-gray-200 shadow-lg rounded-2xl p-8 mt-6"
+      >
+        {/* Title */}
+        <div className="grid md:grid-cols-2 gap-4">
+          <div>
+            <label className="label font-semibold">Title</label>
+            <input
+              type="text"
+              name="title"
+              placeholder="e.g. Yamaha Fz Guitar for Sale"
+              required
+              className="input input-bordered w-full"
+            />
+          </div>
+
+          <div>
+            <label className="label font-semibold">Category</label>
+            <select
+              name="select"
+              required
+              className="select select-bordered w-full"
+            >
+              <option disabled>Select a Category</option>
+              <option>Furniture</option>
+              <option>Vehicles</option>
+              <option>Home Appliances</option>
+              <option>Electronics</option>
+              <option>Baby Products</option>
+            </select>
+          </div>
+        </div>
+
+        {/* Price */}
+        <div className="grid md:grid-cols-2 gap-4 mt-4">
+          <div>
+            <label className="label font-semibold">Min Price ($)</label>
+            <input
+              type="number"
+              name="price_min"
+              placeholder="e.g. 18.5"
+              required
+              className="input input-bordered w-full"
+            />
+          </div>
+          <div>
+            <label className="label font-semibold">Max Price ($)</label>
+            <input
+              type="number"
+              name="price_max"
+              placeholder="Optional (default = Min Price)"
+              className="input input-bordered w-full"
+            />
+          </div>
+        </div>
+
+        {/* Product Condition */}
+        <div className="mt-4">
+          <label className="label font-semibold">Product Condition</label>
+          <div className="flex gap-6">
+            <label className="flex items-center gap-2">
               <input
                 type="radio"
                 name="condition"
-                className="radio"
+                value="Brand New"
                 defaultChecked
               />
-              <p>Brand New</p>
-            </div>
-            <div className="flex justify-center gap-1 items-center">
-              {" "}
-              <input type="radio" name="condition" className="radio" />
-              <p>Used</p>
-            </div>
+              Brand New
+            </label>
+            <label className="flex items-center gap-2">
+              <input type="radio" name="condition" value="Used" /> Used
+            </label>
           </div>
-          <label>Product Usage Time</label>
+        </div>
+
+        {/* Usage + Image */}
+        <div className="grid md:grid-cols-2 gap-4 mt-4">
+          <div>
+            <label className="label font-semibold">Product Usage Time</label>
+            <input
+              type="text"
+              name="usage"
+              placeholder="e.g. 1 year 3 month"
+              className="input input-bordered w-full"
+            />
+          </div>
+          <div>
+            <label className="label font-semibold">Product Image URL</label>
+            <input
+              type="url"
+              name="image"
+              placeholder="https://..."
+              required
+              className="input input-bordered w-full"
+            />
+          </div>
+        </div>
+
+        {/* Seller Info */}
+        <div className="grid md:grid-cols-2 gap-4 mt-4">
+          <div>
+            <label className="label font-semibold">Seller Name</label>
+            <input
+              type="text"
+              name="seller_name"
+              placeholder="e.g. Artisan Roasters"
+              defaultValue={user.displayName}
+              readOnly
+              className="input input-bordered w-full"
+            />
+          </div>
+          <div>
+            <label className="label font-semibold">Seller Email</label>
+            <input
+              type="email"
+              name="seller_email"
+              placeholder="leli31955@nrlord.com"
+              defaultValue={user.email}
+              readOnly
+              className="input input-bordered w-full"
+            />
+          </div>
+        </div>
+
+        <div className="grid md:grid-cols-2 gap-4 mt-4">
+          <div>
+            <label className="label font-semibold">Seller Contact</label>
+            <input
+              type="text"
+              name="seller_contact"
+              placeholder="e.g. +1-555-1234"
+              className="input input-bordered w-full"
+            />
+          </div>
+          <div>
+            <label className="label font-semibold">Seller Image URL</label>
+            <input
+              type="url"
+              name="seller_image"
+              placeholder="https://..."
+              defaultValue={user.photoURL}
+              readOnly
+              className="input input-bordered w-full"
+            />
+          </div>
+        </div>
+
+        {/* Location + Description */}
+        <div className="mt-4">
+          <label className="label font-semibold">Location</label>
           <input
             type="text"
-            placeholder="e.g. 1 year 3 month "
-            className="input"
-            name="usage"
-          />
-          <label>Seller Name</label>
-          <input
-            type="text"
-            placeholder="e.g. Artisan Roasters "
-            className="input"
-            name="seller_name"
-          />
-          <label>Seller Email</label>
-          <input
-            type="email"
-            placeholder="leli31955@nrlord.com "
-            className="input"
-            name="seller_email"
-          />
-          <label>Seller Contact</label>
-          <input
-            type="text"
-            placeholder="e.g. +1-555-1234"
-            name="seller_contact"
-            className="input"
-          />
-          <label>Seller Image URL</label>
-          <input
-            type="text"
-            name="seller_image"
-            placeholder="https://..."
-            className="input"
-          />
-          <label>Location</label>
-          <input
-            type="text"
-            placeholder="city,country"
-            className="input"
             name="location"
-          />{" "}
-          <label>Simple Description about your Product</label>
-          <input
-            type="text"
-            name="description"
-            placeholder="e.g. I bought this product 3 month ago. did not used more than 1/2 time. actually learning
-            guitar is so tough..... "
-            className="textarea"
+            placeholder="City, Country"
+            className="input input-bordered w-full"
           />
-          <button
-            type="submit"
-            className="btn gradient mt-4"
-            disabled={loading}
-          >
-            {loading ? "Submitting..." : "Submit"}
-          </button>
-        </fieldset>
+        </div>
+
+        <div className="mt-4">
+          <label className="label font-semibold">Simple Description</label>
+          <textarea
+            name="description"
+            placeholder="e.g. I bought this product 3 months ago..."
+            className="textarea textarea-bordered w-full"
+          />
+        </div>
+
+        <button
+          type="submit"
+          className="btn w-full mt-6 gradient text-white font-semibold"
+          disabled={loading}
+        >
+          {loading ? "Creating..." : "Create A Product"}
+        </button>
       </form>
     </div>
   );

@@ -17,13 +17,19 @@ const AllProducts = () => {
   // }, []);
 
   useEffect(() => {
-    fetch(`https://smart-deals-server-nine.vercel.app/allProducts`).then(
-      (res) =>
-        res.json().then((data) => {
-          setProducts(data);
-        })
+    fetch(`http://localhost:3000/allProducts`).then((res) =>
+      res.json().then((data) => {
+        setProducts(data);
+      })
     );
   }, []);
+  //   fetch(`http://localhost:3000/allProducts`).then(
+  //     (res) =>
+  //       res.json().then((data) => {
+  //         setProducts(data);
+  //       })
+  //   );
+  // }, []);
 
   return (
     <div>

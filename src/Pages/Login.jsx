@@ -1,11 +1,15 @@
-import React, { use } from "react";
+import React, { use, useState } from "react";
 import { Link } from "react-router";
 import { AuthContext } from "../context/AuthContext";
 import Swal from "sweetalert2";
+import { BsEyeFill, BsEyeSlash } from "react-icons/bs";
 
 const Login = () => {
   const { signInGoogleFunc, setUser, logInFunc } = use(AuthContext);
-
+  const [show, setShow] = useState(false);
+  const handleShow = () => {
+    setShow(!show);
+  };
   const handleLogin = (e) => {
     e.preventDefault();
     const email = e.target.email.value;
@@ -52,13 +56,22 @@ const Login = () => {
                 className="input"
                 placeholder="Email"
               />
-              <label className="label">Password</label>
-              <input
-                type="password"
-                name="password"
-                className="input"
-                placeholder="Password"
-              />
+              <div className="relative">
+                <label className="label">Password</label>
+                <input
+                  type={show ? "text" : "password"}
+                  name="password"
+                  className="input"
+                  placeholder="Password"
+                />
+                <button
+                  type="button"
+                  onClick={handleShow}
+                  className="cursor-pointer absolute top-8 right-8 z-10"
+                >
+                  {show ? <BsEyeFill /> : <BsEyeSlash />}
+                </button>
+              </div>
               <div>
                 <a className="link link-hover">Forgot password?</a>
               </div>

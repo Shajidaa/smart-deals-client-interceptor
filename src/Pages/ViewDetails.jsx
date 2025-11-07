@@ -13,25 +13,20 @@ const ViewDetails = () => {
     bidRef.current.showModal();
   };
   const {
-    title,
-    price_min,
-    price_max,
-    condition,
     _id: productId,
-    image,
+
+    description,
   } = product;
   useEffect(() => {
     axios
-      .get(
-        `https://smart-deals-server-nine.vercel.app/products/bids/${productId}`
-      )
+      .get(`http://localhost:3000/products/bids/${productId}`)
       .then((data) => {
         setBidsProduct(data.data);
         // console.log(data);
       });
   }, [productId]);
   // useEffect(() => {
-  //   fetch(`https://smart-deals-server-nine.vercel.app/products/bids/${productId}`)
+  //   fetch(`http://localhost:3000/products/bids/${productId}`)
   //     .then((res) => res.json())
   //     .then((data) => {
   //       setBidsProduct(data);
@@ -51,7 +46,7 @@ const ViewDetails = () => {
       status: "pending",
     };
 
-    fetch("https://smart-deals-server-nine.vercel.app/bids", {
+    fetch("http://localhost:3000/bids", {
       method: "POST",
       headers: {
         "Content-type": "application/json",
@@ -74,12 +69,9 @@ const ViewDetails = () => {
 
   const handleDelete = async (_id) => {
     try {
-      const res = await fetch(
-        `https://smart-deals-server-nine.vercel.app/bids/${_id}`,
-        {
-          method: "Delete",
-        }
-      );
+      const res = await fetch(`http://localhost:3000/bids/${_id}`, {
+        method: "Delete",
+      });
       const data = await res.json();
       if (data) {
         const remainingBids = bidsProduct.filter((bid) => bid._id !== _id);
@@ -90,82 +82,166 @@ const ViewDetails = () => {
       console.log(error.message);
     }
   };
+
   return (
-    <div className="max-w-11/12">
-      <div className="">
-        <Link to={"/allProducts"}>Back </Link>
-        <div className="flex justify-center items-center">
-          <div>
-            <figure className="px-10 pt-10">
-              <img src={image} className="rounded-xl" />
-            </figure>
-          </div>
-          <div>
-            <div className="">
-              <h2 className="card-title">
-                {title}({condition})
-              </h2>
-              <p>Price: ${price_max - price_min}</p>
+    <div className="max-w-11/12 mx-auto">
+      <div className="min-h-screen bg-base-100 py-10 px-4 md:px-10">
+        <div className="max-w-6xl mx-auto">
+          {/* Back link */}
+          <Link
+            to="/allProducts"
+            className="text-sm text-blue-500 hover:underline"
+          >
+            ← Back To Products
+          </Link>
+
+          <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-6">
+            {/* Left Section */}
+            <div className="bg-base-200 p-5 rounded-2xl shadow-sm">
+              <img
+                src={product.image}
+                alt={product.title}
+                className="w-full h-72 object-cover rounded-xl"
+              />
+              <div className="mt-4">
+                <h2 className="text-xl font-semibold text-gray-800">
+                  Product Description
+                </h2>
+                <div className="mt-3 space-y-1 text-sm text-gray-600">
+                  <p>
+                    <span className="font-medium text-gray-800">
+                      Condition:
+                    </span>{" "}
+                    {product.condition}
+                  </p>
+                  <p>
+                    <span className="font-medium text-gray-800">
+                      Usage Time:
+                    </span>{" "}
+                    {product.usage}
+                  </p>
+                  <p className="mt-2">{product.description}</p>
+                </div>
+              </div>
             </div>
-            <button onClick={handleBidModalOpen} className="btn btn-accent">
-              I want to buy this Product
-            </button>
+
+            {/* Right Section */}
+            <div className="space-y-4">
+              <div>
+                <h1 className="text-2xl md:text-3xl font-bold text-gray-900">
+                  {product.title}
+                </h1>
+                <p className="text-sm text-gray-400 mt-1">
+                  For {product.category}
+                </p>
+              </div>
+
+              <div className="bg-base-200 p-4 rounded-xl shadow-sm">
+                <p className="text-lg font-semibold text-green-600">
+                  ৳{product.price_min.toLocaleString()} -{" "}
+                  {product.price_max.toLocaleString()}
+                </p>
+                <p className="text-xs text-gray-500">Price starts from</p>
+              </div>
+
+              <div className="bg-base-200 p-4 rounded-xl shadow-sm">
+                <h3 className="font-semibold text-gray-800 mb-2">
+                  Product Details
+                </h3>
+                <p className="text-sm text-gray-600">
+                  Product ID: {product._id}
+                </p>
+                <p className="text-sm text-gray-600">
+                  Posted: {new Date(product.created_at).toLocaleDateString()}
+                </p>
+              </div>
+
+              <div className="bg-base-200 p-4 rounded-xl shadow-sm">
+                <h3 className="font-semibold text-gray-800 mb-3">
+                  Seller Information
+                </h3>
+                <div className="flex items-center gap-3">
+                  <img
+                    src={product.seller_image}
+                    alt={product.seller_name}
+                    className="w-12 h-12 rounded-full object-cover border"
+                  />
+                  <div>
+                    <p className="font-semibold text-gray-800">
+                      {product.seller_name}
+                    </p>
+                    <p className="text-sm text-gray-500">{product.location}</p>
+                    <p className="text-sm text-gray-500">
+                      Contact: {product.seller_contact}
+                    </p>
+                    <div className="badge badge-warning mt-1 text-xs">
+                      {product.status}
+                    </div>
+                  </div>
+                </div>
+              </div>
+              {user.email === product.email ? (
+                <button
+                  onClick={handleBidModalOpen}
+                  className="btn gradient w-full mt-4 hidden"
+                >
+                  I Want Buy This Product
+                </button>
+              ) : (
+                <button
+                  onClick={handleBidModalOpen}
+                  className="btn gradient w-full mt-4"
+                >
+                  I Want Buy This Product
+                </button>
+              )}
+            </div>
           </div>
         </div>
-
-        <dialog
-          ref={bidRef}
-          id="my_modal_5"
-          className="modal modal-bottom sm:modal-middle"
-        >
-          <div className="modal-box">
-            <h3 className="font-bold text-lg">
-              Give Seller Your Offered Price
-            </h3>
-            <form onSubmit={handleBidSubmit}>
-              <fieldset className="fieldset">
-                {/* name  */}
-                <label className="label">Name</label>
-                <input
-                  type="text"
-                  name="name"
-                  className="input"
-                  readOnly
-                  defaultValue={user?.displayName}
-                />
-                {/* email  */}
-                <label className="label">Email</label>
-                <input
-                  type="email"
-                  name="email"
-                  className="input"
-                  readOnly
-                  defaultValue={user?.email}
-                />
-                {/* bid */}
-                <label className="label">Bid</label>
-                <input
-                  type="text"
-                  name="bid"
-                  className="input"
-                  placeholder="type your bid"
-                  required
-                />
-
-                <button type="submit" className="btn btn-neutral mt-4">
-                  Submit bit
-                </button>
-              </fieldset>
-            </form>
-            <div className="modal-action">
-              <form method="dialog">
-                {/* if there is a button in form, it will close the modal */}
-                <button className="btn">Close</button>
-              </form>
-            </div>
-          </div>
-        </dialog>
       </div>
+      {/* Product description */}
+      <div className="bg-base-100 p-6 shadow-md rounded-2xl">
+        <h3 className="text-lg font-semibold mb-2">Product Description</h3>
+        <p className="text-gray-600 leading-relaxed">{description}</p>
+      </div>
+      <dialog ref={bidRef} className="modal modal-bottom sm:modal-middle">
+        <div className="modal-box">
+          <h3 className="font-bold text-lg mb-3">
+            Give Seller Your Offered Price
+          </h3>
+          <form onSubmit={handleBidSubmit} className="space-y-3">
+            <input
+              type="text"
+              name="name"
+              value={user?.displayName}
+              readOnly
+              className="input input-bordered w-full"
+            />
+            <input
+              type="email"
+              name="email"
+              value={user?.email}
+              readOnly
+              className="input input-bordered w-full"
+            />
+            <input
+              type="number"
+              name="bid"
+              placeholder="Enter your bid price"
+              required
+              className="input input-bordered w-full"
+            />
+            <button type="submit" className="btn btn-neutral w-full">
+              Submit Bid
+            </button>
+          </form>
+          <div className="modal-action">
+            <form method="dialog">
+              <button className="btn">Close</button>
+            </form>
+          </div>
+        </div>
+      </dialog>
       <div className="max-w-11/12 mx-auto">
         <h1 className="text-2xl font-semibold my-5">
           {" "}

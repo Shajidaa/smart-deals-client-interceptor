@@ -21,7 +21,7 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <RootLayout></RootLayout>,
-    HydrateFallback: <Spinner></Spinner>,
+
     children: [
       {
         index: true,
@@ -35,7 +35,8 @@ const router = createBrowserRouter([
         path: "/productsDetails/:id",
         loader: ({ params }) =>
           fetch(
-            `https://smart-deals-server-nine.vercel.app/productsDetails/${params.id}`
+            `http://localhost:3000/productsDetails/${params.id}`
+            // `http://localhost:3000/productsDetails/${params.id}`
           ),
         element: (
           <PrivateRouter>
