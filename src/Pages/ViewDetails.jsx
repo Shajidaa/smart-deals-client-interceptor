@@ -283,17 +283,26 @@ const ViewDetails = () => {
                   </td>
 
                   <td>${pro.bid_price}</td>
-                  <th className="flex  items-center gap-2">
-                    <button className="btn btn-success btn-xs  ">
-                      Accept Offer
-                    </button>
-                    <button
-                      onClick={() => handleDelete(`${pro._id}`)}
-                      className="btn btn-error btn-xs"
-                    >
-                      Reject Offer
-                    </button>
-                  </th>
+                  {user.email === pro.buyer_email ? (
+                    <th className="flex  items-center gap-2">
+                      <button className="btn btn-success btn-xs  ">Edit</button>
+                      <button
+                        onClick={() => handleDelete(`${pro._id}`)}
+                        className="btn btn-error btn-xs"
+                      >
+                        Delete
+                      </button>
+                    </th>
+                  ) : (
+                    <th className="flex  items-center gap-2">
+                      <button disabled className="btn btn-success btn-xs  ">
+                        Edit
+                      </button>
+                      <button disabled className="btn btn-error btn-xs">
+                        Delete
+                      </button>
+                    </th>
+                  )}
                 </tr>
               </tbody>
             ))}

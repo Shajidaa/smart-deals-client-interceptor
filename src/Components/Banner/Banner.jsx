@@ -2,7 +2,7 @@
 import { CiSearch } from "react-icons/ci";
 import { Link } from "react-router";
 
-const Banner = ({ handleSearch }) => {
+const Banner = ({ handleSearch, loading }) => {
   //   const [search, setSearch] = useState([]);
   //   const handleSearch = (e) => {
   //     e.preventDefault();
@@ -37,12 +37,14 @@ const Banner = ({ handleSearch }) => {
             name="search_text"
             placeholder="Search for Products, Categories..."
             className="input input-bordered w-full rounded-l-full focus:outline-none focus:ring-2 focus:ring-purple-400"
+            required
           />
           <button
             type="submit"
+            disabled={loading}
             className="btn btn-primary rounded-r-full bg-purple-600 border-none hover:bg-purple-700"
           >
-            <CiSearch />
+            {loading ? "Searching" : <CiSearch />}
           </button>
         </div>
       </form>

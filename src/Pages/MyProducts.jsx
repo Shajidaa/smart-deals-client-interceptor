@@ -10,7 +10,7 @@ const MyProducts = () => {
   const editRef = useRef(null);
   const axiosInstance = useAxiosSecure();
   const [myProducts, setMyProducts] = useState([]);
-  const [product, setProduct] = useState([]);
+
   useEffect(() => {
     axiosInstance.get(`/products?email=${user?.email}`).then((data) => {
       setMyProducts(data.data);
@@ -50,12 +50,8 @@ const MyProducts = () => {
       price_min: form.price_min.value,
     };
     try {
-      const data = await instance.patch(`/products/${id}`, updateProduct);
-      setProduct((prev) =>
-        prev.map((prod) =>
-          prod._id === updateProduct._id ? { ...prod, ...updateProduct } : prod
-        )
-      );
+      await instance.patch(`/products/${id}`, updateProduct);
+      editRef.current.close();
     } catch (error) {
       console.log(error);
     }
@@ -172,12 +168,6 @@ const MyProducts = () => {
                   </button>
                 </fieldset>
               </form>
-              <div className="modal-action">
-                <form method="dialog">
-                  {/* if there is a button in form, it will close the modal */}
-                  <button className="btn">Close</button>
-                </form>
-              </div>
             </div>
           </dialog>
         ))}
