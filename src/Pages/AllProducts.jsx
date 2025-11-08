@@ -4,7 +4,7 @@ import Product from "../Components/Product/Product";
 const AllProducts = () => {
   const [products, setProducts] = useState([]);
 
-  // const allProductsData = fetch(`https://smart-deals-server-nine.vercel.appallProducts`).then(
+  // const allProductsData = fetch(`https://smart-deals-server-nine.vercel.app/allProducts`).then(
   //   (res) => res.json()
   // );
 
@@ -24,7 +24,7 @@ const AllProducts = () => {
         })
     );
   }, []);
-  //   fetch(`https://smart-deals-server-nine.vercel.appallProducts`).then(
+  //   fetch(`https://smart-deals-server-nine.vercel.app/allProducts`).then(
   //     (res) =>
   //       res.json().then((data) => {
   //         setProducts(data);
