@@ -50,7 +50,15 @@ const MyProducts = () => {
       price_min: form.price_min.value,
     };
     try {
-      await instance.patch(`/products/${id}`, updateProduct);
+      const res = await instance.patch(`/products/${id}`, updateProduct);
+      if (res.data.modifiedCount > 0) {
+        // Update the product locally
+        setMyProducts((prev) =>
+          prev.map((product) =>
+            product._id === id ? { ...product, ...updateProduct } : product
+          )
+        );
+      }
       editRef.current.close();
     } catch (error) {
       console.log(error);
