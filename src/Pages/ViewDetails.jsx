@@ -87,7 +87,7 @@ const ViewDetails = () => {
       console.log(error.message);
     }
   };
-
+  const handleEditBtn = () => {};
   return (
     <div className="max-w-11/12 mx-auto">
       <div className="min-h-screen bg-base-100 py-10 px-4 md:px-10">
@@ -290,7 +290,12 @@ const ViewDetails = () => {
                   <td>${pro.bid_price}</td>
                   {user.email === pro.buyer_email ? (
                     <th className="flex  items-center gap-2">
-                      <button className="btn btn-success btn-xs  ">Edit</button>
+                      <button
+                        onClick={handleEditBtn}
+                        className="btn btn-success btn-xs  "
+                      >
+                        Edit
+                      </button>
                       <button
                         onClick={() => handleDelete(`${pro._id}`)}
                         className="btn btn-error btn-xs"

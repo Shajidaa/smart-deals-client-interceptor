@@ -25,7 +25,7 @@ const Home = () => {
     setLoading(true);
     const search_text = e.target.search_text.value.trim();
     fetch(
-      `https://smart-deals-server-nine.vercel.appsearch?search=${search_text}`
+      `https://smart-deals-server-nine.vercel.app/search?search=${search_text}`
     )
       .then((res) => res.json())
       .then((data) => {
