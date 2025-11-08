@@ -89,8 +89,8 @@ const ViewDetails = () => {
   };
   const handleEditBtn = () => {};
   return (
-    <div className="max-w-11/12 mx-auto">
-      <div className="min-h-screen bg-base-100 py-10 px-4 md:px-10">
+    <div className="max-w-11/12 mx-auto my-5 ">
+      <div className="min-h-screen bg-base-100  py-10 px-4 md:px-10">
         <div className="max-w-6xl mx-auto">
           {/* Back link */}
           <Link
@@ -102,25 +102,25 @@ const ViewDetails = () => {
 
           <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* Left Section */}
-            <div className="bg-base-200 p-5 rounded-2xl shadow-sm">
+            <div className="bg-base-200  p-5 rounded-2xl shadow-sm">
               <img
                 src={product.image}
                 alt={product.title}
                 className="w-full h-72 object-cover rounded-xl"
               />
               <div className="mt-4">
-                <h2 className="text-xl font-semibold text-gray-800">
+                <h2 className="text-xl font-semibold text-gray-800 dark:text-white">
                   Product Description
                 </h2>
-                <div className="mt-3 space-y-1 text-sm text-gray-600">
+                <div className="mt-3 space-y-1 text-sm text-gray-600 dark:text-white">
                   <p>
-                    <span className="font-medium text-gray-800">
+                    <span className="font-medium text-gray-800 dark:text-white">
                       Condition:
                     </span>{" "}
                     {product.condition}
                   </p>
                   <p>
-                    <span className="font-medium text-gray-800">
+                    <span className="font-medium text-gray-800 dark:text-white">
                       Usage Time:
                     </span>{" "}
                     {product.usage}
@@ -131,18 +131,18 @@ const ViewDetails = () => {
             </div>
 
             {/* Right Section */}
-            <div className="space-y-4">
-              <div>
-                <h1 className="text-2xl md:text-3xl font-bold text-gray-900">
+            <div className="space-y-4 ">
+              <div className="">
+                <h1 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white">
                   {product.title}
                 </h1>
-                <p className="text-sm text-gray-400 mt-1">
+                <p className="text-sm text-gray-400 dark:text-white mt-1">
                   For {product.category}
                 </p>
               </div>
 
               <div className="bg-base-200 p-4 rounded-xl shadow-sm">
-                <p className="text-lg font-semibold text-green-600">
+                <p className="text-lg  font-semibold text-green-600">
                   ৳{product.price_min.toLocaleString()} -{" "}
                   {product.price_max.toLocaleString()}
                 </p>

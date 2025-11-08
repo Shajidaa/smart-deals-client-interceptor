@@ -31,7 +31,7 @@ const Navbar = () => {
       <li>
         <NavLink
           className={
-            "ml-3 border-b-2 border-transparent text-base font-medium text-black"
+            "ml-3 border-b-2 border-transparent text-base font-medium "
           }
           to={"/"}
         >
@@ -39,7 +39,7 @@ const Navbar = () => {
         </NavLink>
         <NavLink
           className={
-            "ml-3 border-b-2 border-transparent text-base font-medium text-black"
+            "ml-3 border-b-2 border-transparent text-base font-medium "
           }
           to={"/allProducts"}
         >
@@ -49,7 +49,7 @@ const Navbar = () => {
           <>
             <NavLink
               className={
-                "ml-3 border-b-2 border-transparent text-base font-medium text-black"
+                "ml-3 border-b-2 border-transparent text-base font-medium "
               }
               to={"/myProducts"}
             >
@@ -57,7 +57,7 @@ const Navbar = () => {
             </NavLink>
             <NavLink
               className={
-                "ml-3 border-b-2 border-transparent text-base font-medium text-black"
+                "ml-3 border-b-2 border-transparent text-base font-medium "
               }
               to={"/myBids"}
             >
@@ -65,7 +65,7 @@ const Navbar = () => {
             </NavLink>
             <NavLink
               className={
-                "ml-3 border-b-2 border-transparent text-base font-medium text-black"
+                "ml-3 border-b-2 border-transparent text-base font-medium "
               }
               to={"/createProduct"}
             >
@@ -142,7 +142,6 @@ const Navbar = () => {
               <input
                 onChange={(e) => handleTheme(e.target.checked)}
                 type="checkbox"
-                className="toggle"
                 defaultChecked={localStorage.getItem("theme") === "dark"}
                 checked={theme === "dark"}
               />
