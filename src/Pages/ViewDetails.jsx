@@ -20,7 +20,7 @@ const ViewDetails = () => {
   useEffect(() => {
     axios
       .get(
-        `https://smart-deals-server-nine.vercel.appproducts/bids/${productId}`
+        `https://smart-deals-server-nine.vercel.app/products/bids/${productId}`
       )
       .then((data) => {
         setBidsProduct(data.data);
@@ -72,7 +72,7 @@ const ViewDetails = () => {
   const handleDelete = async (_id) => {
     try {
       const res = await fetch(
-        `https://smart-deals-server-nine.vercel.appbids/${_id}`,
+        `https://smart-deals-server-nine.vercel.app/bids/${_id}`,
         {
           method: "Delete",
         }
