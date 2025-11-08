@@ -57,9 +57,12 @@ const Banner = ({ handleSearch, loading }) => {
         >
           Watch All Products
         </Link>
-        <button className="btn btn-outline border-purple-600 text-purple-600 hover:bg-purple-600 hover:text-white rounded-full px-6">
+        <Link
+          to={"/createProduct"}
+          className="btn btn-outline border-purple-600 text-purple-600 hover:bg-purple-600 hover:text-white rounded-full px-6"
+        >
           Post a Product
-        </button>
+        </Link>
       </div>
     </div>
   );

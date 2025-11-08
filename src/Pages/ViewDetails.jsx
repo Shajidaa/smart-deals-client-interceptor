@@ -295,10 +295,10 @@ const ViewDetails = () => {
                     </th>
                   ) : (
                     <th className="flex  items-center gap-2">
-                      <button disabled className="btn btn-success btn-xs  ">
+                      <button readOnly className="btn btn-success btn-xs  ">
                         Edit
                       </button>
-                      <button disabled className="btn btn-error btn-xs">
+                      <button readOnly className="btn btn-error btn-xs">
                         Delete
                       </button>
                     </th>
