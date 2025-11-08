@@ -48,7 +48,7 @@ const ViewDetails = () => {
       status: "pending",
     };
 
-    fetch("https://smart-deals-server-nine.vercel.appbids", {
+    fetch("https://smart-deals-server-nine.vercel.app/bids", {
       method: "POST",
       headers: {
         "Content-type": "application/json",
