@@ -17,7 +17,7 @@ const Home = () => {
   // };
 
   const latestProductsPromise = fetch(
-    "https://smart-deals-server-nine.vercel.applatest-products"
+    "https://smart-deals-server-nine.vercel.app/latest-products"
   ).then((res) => res.json());
 
   const handleSearch = (e) => {
