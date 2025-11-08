@@ -1,10 +1,16 @@
-@import "tailwindcss";
+/* @import "tailwindcss";
 
 @plugin "daisyui" {
     themes: light --default;
+} */
+
+@import "tailwindcss";
+
+@plugin "daisyui" {
+    themes: light --default, dark --prefersdark;
 }
 
-
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
 
 .gradient {
     @apply bg-linear-to-r from-[#632EE3] to-[#9F62F2] text-white
