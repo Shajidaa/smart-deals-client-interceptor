@@ -8,7 +8,7 @@ const Home = () => {
   const [loading, setLoading] = useState(false);
   // const latestProductsPromise = async () => {
   //   try {
-  //     const res = await fetch(`http://localhost:3000/latest-products`);
+  //     const res = await fetch(`https://smart-deals-server-nine.vercel.applatest-products`);
   //     const data = await res.json();
   //     return data;
   //   } catch (error) {
@@ -17,14 +17,16 @@ const Home = () => {
   // };
 
   const latestProductsPromise = fetch(
-    "http://localhost:3000/latest-products"
+    "https://smart-deals-server-nine.vercel.applatest-products"
   ).then((res) => res.json());
 
   const handleSearch = (e) => {
     e.preventDefault();
     setLoading(true);
     const search_text = e.target.search_text.value.trim();
-    fetch(`http://localhost:3000/search?search=${search_text}`)
+    fetch(
+      `https://smart-deals-server-nine.vercel.appsearch?search=${search_text}`
+    )
       .then((res) => res.json())
       .then((data) => {
         // console.log(data);

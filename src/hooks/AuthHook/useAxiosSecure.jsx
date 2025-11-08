@@ -3,8 +3,7 @@ import useAuth from "./Auth";
 import { useEffect } from "react";
 
 const axiosInstance = axios.create({
-  // baseURL: `http://localhost:3000`,
-  baseURL: `http://localhost:3000/`,
+  baseURL: `https://smart-deals-server-nine.vercel.app`,
 });
 
 const useAxiosSecure = () => {

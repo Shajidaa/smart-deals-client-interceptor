@@ -7,7 +7,7 @@ const Banner = ({ handleSearch, loading }) => {
   //   const handleSearch = (e) => {
   //     e.preventDefault();
   //     const search_text = e.target.search_text.value;
-  //     fetch(`http://localhost:3000/search?search=${search_text}`)
+  //     fetch(`https://smart-deals-server-nine.vercel.appsearch?search=${search_text}`)
   //       .then((res) => res.json())
   //       .then((data) => {
   //         console.log(data);

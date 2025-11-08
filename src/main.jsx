@@ -35,8 +35,8 @@ const router = createBrowserRouter([
         path: "/productsDetails/:id",
         loader: ({ params }) =>
           fetch(
-            `http://localhost:3000/productsDetails/${params.id}`
-            // `http://localhost:3000/productsDetails/${params.id}`
+            `https://smart-deals-server-nine.vercel.appproductsDetails/${params.id}`
+            // `https://smart-deals-server-nine.vercel.appproductsDetails/${params.id}`
           ),
         element: (
           <PrivateRouter>
